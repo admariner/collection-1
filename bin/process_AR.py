@@ -55,13 +55,13 @@ def open_art_files(targetpath):
 					subjects2 = child1['children']
 
 				for child2 in subjects2:
-					item = {}
-					item['id'] = acno
-					item['title'] = title
-					item['artist'] = artist
-					item['url'] = url
-					# open txt files with base64 encode for a 40x40 thumbnail
-					item['thumb'] = open_matching_base64_file(acno)
+					item = {
+					    'id': acno,
+					    'title': title,
+					    'artist': artist,
+					    'url': url,
+					    'thumb': open_matching_base64_file(acno),
+					}
 					matchdict = next((item for item in level2list if item['id'] == child2['id']), None)
 					# add the acno to the corresponding jsonopen
 					matchdict['artlist'].append(item)
@@ -69,8 +69,7 @@ def open_art_files(targetpath):
 def open_matching_base64_file(matchingid):
 	try:
 		txtopen = open('./images0/ar40/' + matchingid + '.tile.txt','rb')
-		txtcontent = txtopen.read()
-		return txtcontent
+		return txtopen.read()
 	except:
 		return 'none'
 
